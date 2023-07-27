@@ -43,7 +43,7 @@ function Post({post}) {
 
         <div className="mt-10 font-medium">
             <ReactMarkdown children={post.markdown.parent} components={{
-      code({node, inline, className, children, ...props}) {
+      code({node, inline, className, children }) {
         const match = /language-(\w+)/.exec(className || '')
         return !inline && match ? (
           <SyntaxHighlighter
@@ -54,9 +54,7 @@ function Post({post}) {
             PreTag="div"
           />
         ) : (
-          <code {...props} className={className}>
-            {children}
-          </code>
+          <code>{children}</code>
         )
       }
     }}></ReactMarkdown>
