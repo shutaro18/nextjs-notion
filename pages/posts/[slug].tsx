@@ -4,7 +4,6 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import Link from "next/link";
-// import { defaultStyle } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 export const getStaticPaths = async () => {
   const allPosts = await getAllPosts();
@@ -44,28 +43,28 @@ const Post = ({ post }) => {
       ))}
       <div className="mt-10 font-medium">
         <ReactMarkdown
-          components={{
-            code({ node, inline, className, children }) {
-              const match = /language-(\w+)/.exec(className || "");
-              return !inline && match ? (
-                <SyntaxHighlighter
-                  style={vscDarkPlus}
-                  language={match[1]}
-                  PreTag="div"
-                >
-                  {String(children).replace(/\n$/, "")}
-                </SyntaxHighlighter>
-              ) : (
-                <code>{children}</code>
-              );
-            },
-          }}
-        >
-          {post.markdown}
+              components={{
+                code({ node, inline, className, children }) {
+                  const match = /language-(\w+)/.exec(className || "");
+                  return !inline && match ? (
+                    <SyntaxHighlighter
+                      style={vscDarkPlus}
+                      language={match[1]}
+                      PreTag="div"
+                    >
+                      {String(children).replace(/\n$/, "")}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code>{children}</code>
+                  );
+                },
+              }}
+            >
+           {typeof post.markdown === "string" ? post.markdown : ""}
         </ReactMarkdown>
 
         <Link href="/">
-          <span className="pb-20 block mt-3 text-sky-900">←ホームに戻る</span>
+          <p className="pb-20 block mt-3 text-sky-900">←ホームに戻る</p>
         </Link>
       </div>
     </section>
