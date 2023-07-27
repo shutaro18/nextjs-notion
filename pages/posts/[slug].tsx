@@ -42,22 +42,25 @@ function Post({post}) {
         }
 
         <div className="mt-10 font-medium">
-            <ReactMarkdown children={post.markdown.parent} components={{
-      code({node, inline, className, children }) {
-        const match = /language-(\w+)/.exec(className || '')
-        return !inline && match ? (
-          <SyntaxHighlighter
-            {...props}
-            children={String(children).replace(/\n$/, '')}
-            style={vscDarklPlus}
-            language={match[1]}
-            PreTag="div"
-          />
-        ) : (
-          <code>{children}</code>
-        )
-      }
-    }}></ReactMarkdown>
+            <ReactMarkdown
+            components={{
+              code({node, inline, className, children }) {
+              const match = /language-(\w+)/.exec(className || '')
+              return !inline && match ? (
+                <SyntaxHighlighter
+                  children={String(children).replace(/\n$/, '')}
+                  style={vscDarklPlus}
+                  language={match[1]}
+                  PreTag="div"
+                />
+              ) : (
+                <code>{children}</code>
+              )
+            }
+          }}
+        >
+        {post.markdown}
+             </ReactMarkdown>
 
         <Link href="/">
             <p className="text-sky-900 font-medium mt-10 pb-20">←Back to Home</p>
