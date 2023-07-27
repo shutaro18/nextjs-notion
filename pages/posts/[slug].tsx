@@ -48,11 +48,12 @@ function Post({post}) {
               const match = /language-(\w+)/.exec(className || '')
               return !inline && match ? (
                 <SyntaxHighlighter
-                  children={String(children).replace(/\n$/, '')}
                   style={vscDarklPlus}
                   language={match[1]}
                   PreTag="div"
-                />
+                >
+                  {String(children).replace(/\n$/, '')}
+                </SyntaxHighlighter>
               ) : (
                 <code>{children}</code>
               )
